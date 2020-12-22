@@ -43,6 +43,7 @@
             </div>
           </div>
           <div class="row unity-subjects">
+            {% if aula_list|length %}
             {% for aula in aula_list %}
             <div class="col col-d-33 col-t-50 col-m-100 zebra-box">
               <div class="content-col">
@@ -52,6 +53,9 @@
               </div>
             </div>
             {% endfor %}
+            {% else %}
+            <p>Ainda não há aulas cadastradas para essa disciplina :(</p>
+            {% endif %}
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ def disciplina(disciplina_id):
     disciplina = disciplina_dao.buscar_por_id(int(disciplina_id))
     
     aula_dao = AulaDAO()
-    aula_list = aula_dao.listar_todas()
+    aula_list = aula_dao.listar_todas_da_disciplina(int(disciplina_id))
 
 
     return render_template("disciplina.html", disciplina=disciplina, aula_list=aula_list)

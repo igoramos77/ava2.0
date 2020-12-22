@@ -16,9 +16,6 @@ class Aula:
     
     def get_disciplina(self):
         return self._disciplina
-    
-    def get_disciplina_id(self):
-        return self._disciplina.get_id()
 
     def get_nome(self):
         return self._nome
