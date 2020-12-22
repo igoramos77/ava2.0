@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>AVA - Engenharia de Software</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/bgrid-framework.v1.css')}}" />
+        <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard-style.css')}}" />
+    </head>
+    <body>
+      <section class="grid-container">
+        <!-- START MENU SECTION -->
+        {% include 'partials/menu-section.html' %}
+        <!-- END MENU SECTION -->
+
+        <!-- START CONTENT FEED SECTION -->
+        <section class="content-feed">
+          <div class="container">
+            <div class="feed-container">
+              <div class="row no-padding">
+                <div class="col col-d-80 col-t-80 col-m-100 head">
+                  <div class="content-col">
+                    <h1>Ambiente Virtual de Aprendizagem</h1>
+                    <p>Seja bem-vindo de volta, {{session.aluno_logado.nome}}!</p>
+                  </div>
+                </div>
+                <div class="col col-d-20 col-t-20 col-m-100 right middle t-dnone m-dnone">
+                  <div class="content-col">
+                    <a class="btn btn-red" href="#">Precisa de ajuda?</a>
+                  </div>
+                </div>
+              </div>
+              <div class="row shortcuts no-padding">
+                <div class="col col-d-100 col-t-100 col-m-100">
+                  <div class="content-col">
+                    <h2>Atalhos</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="row unity-shortcut no-padding">
+                <div class="col col-d-25 col-t-25 col-m-50">
+                  <div class="content-col">
+                    <h4>Avaliações</h4>
+                    <p class="shortcut-number">{{assessments}}</p>
+                  </div>
+                </div>
+                <div class="col col-d-25 col-t-25 col-m-50">
+                  <div class="content-col">
+                    <h4>Trabalhos</h4>
+                    <p class="shortcut-number p-alert">{{jobs}}</p>
+                  </div>
+                </div>
+                <div class="col col-d-25 col-t-25 col-m-50">
+                  <div class="content-col">
+                    <h4>Fóruns</h4>
+                    <p class="shortcut-number d-flex">{{foruns}} <img src="{{url_for('static', filename='img/menu-icons/graph-up.svg', _external=True)}}" alt="Indica Crecimento"></p>
+                  </div>
+                </div>
+                <div class="col col-d-25 col-t-25 col-m-50">
+                  <div class="content-col">
+                    <h4>Rendimento</h4>
+                    <p class="shortcut-number">{{production}}%</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row shortcuts no-padding">
+                <div class="col col-d-100 col-t-100 col-m-100 select-subjects">
+                  <div class="content-col">
+                    <ul>
+                      <li>
+                        <a class="active" href="#">Disciplinas</a>
+                      </li>
+                      <li>
+                        <a href="#">Disciplinas Cursadas</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row unity-subjects">
+                {% for disciplina in disciplina_list %}
+                <div class="col col-d-33 col-t-33 col-m-100 t-d-flex">
+                  <div class="content-col inner-box {%  if (today == disciplina.get_dia_semana()) %} bg-dark {% endif %}">
+                    <h5>
+                      {{disciplina.get_nome()}}
+                      {% if today == disciplina.get_dia_semana() %}
+                      <span class="hoje">hoje</span>
+                      {% endif %}
+                    </h5>
+                    <p class="teacher">professor(a):</p>
+                    <p class="teacher-name">{{disciplina.get_professor().get_nome()}}</p>
+                    <div class="row subject-details">
+                      <div class="col col-d-50 col-t-50 col-m-50">
+                        <p class="period">Período</p>
+                        <p class="period-number">{{disciplina.get_periodo()}}º</p>
+                      </div> 
+                      <div class="col col-d-50 col-t-50 col-m-50">
+                        <p class="hour">Dia/Horário</p>
+                        <p class="hour-interval"><span class="semana-day">{{disciplina.get_dia_semana()}}</span><br>{{disciplina.get_horario()}}</p>
+                      </div> 
+                    </div>
+                    <div class="link-acess">
+                      <a href="disciplina/{{disciplina.get_id()}}">Acessar</a>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}       
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- END CONTENT FEED SECTION -->
+
+        <!-- START SIDEBAR SECTION -->
+        <section class="sidebar t-dnone m-dnone">
+          <div class="sidebar-container container">
+            <div class="row">
+              <div class="col col-d-80 col-t-80 col-m-100">
+                <div class="content-col">
+                  <input class="col col-d-80 col-t-80 col-m-100 input-search" type="text" placeholder="Pesquise por palavras chave">
+                </div>
+              </div>
+              <div class="col col-d-20 col-t-20 col-m-100 center t-dnone m-dnone">
+                <div class="content-col">
+                  <button class="notifications">
+                    <img src="{{url_for('static', filename='img/notifications.svg', _external=True)}}" alt="Notificações">
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col col-d-70 col-t-70 col-m-100">
+                <div class="content-col">
+                  <h5>Olá,<br><span class="user-name">{{session.aluno_logado.nome}}</span></h5>
+                  <p class="saud">Seja Bem-vindo ao Ambiente Virtual de Aprendizagem!</p>
+                </div>
+              </div>
+              <div class="col col-d-30 col-t-30 col-m-100 center">
+                <div class="content-col">
+                    <img class="img-fluid" src="static/img/{{session.aluno_logado.avatar}}" alt="Avatar">
+                </div>
+              </div>
+            </div>
+            <div class="row middle">
+              <div class="col col-d-70 col-t-70 col-m-100 t-dnone m-dnone">
+                <div class="content-col">
+                  <input class="col col-d-70 col-t-70 col-m-100 input-copy" type="text" value="portalacademico.com.br">
+                </div>
+              </div>
+              <div class="col col-d-30 col-t-100 col-m-100 center">
+                <div class="content-col">
+                  <a class="totvs" href="http://portal.universidadedevassouras.edu.br/FrameHtml/web/app/edu/PortalEducacional/login/" target="_blank">
+                    TOTVS
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <a class="col col-d-100 col-t-100 col-m-100" href="disciplina.html">
+                <div class="col col-d-100 col-t-100 col-m-100 zebra-box">
+                  <div class="content-col">
+                    <h5>Lab. Interfaces <br> Aula 7</h5>
+                    <p>Desbravando o Adobe XD</p>
+                    <div class="stat-levels">
+                      <p class="percent">80%</p>
+                      <div class="stat-1 stat-bar">
+                        <span class="stat-bar-rating" role="stat-bar" style="width: 80%;">80%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="row">
+              <div class="col col-d-100 col-t-100 col-m-100">
+                <h5>Lembretes</h5>
+              </div>
+              <div class="col col-d-15 col-t-15 col-m-100 alerts">
+                <img class="img-fluid" src="{{url_for('static', filename='img/lembrete-alert.svg', _external=True)}}" alt="Lembrete Alerta">
+              </div>
+              <div class="col col-d-85 col-t-85 col-m-100 alerts">
+                <h6>Trabalho P1 - Lab de Interfaces</h6>
+                <p>Faltam 2 dias para a entrega do trabalho.</p>
+              </div>
+              <div class="col col-d-15 col-t-15 col-m-100 alerts">
+                <img class="img-fluid" src="{{url_for('static', filename='img/lembrete-message.svg', _external=True)}}" alt="Lembrete Alerta">
+              </div>
+              <div class="col col-d-85 col-t-85 col-m-100 alerts">
+                <h6>Nova Mensagem</h6>
+                <p>Prof. Anrafel Fernandes respondeu ao seu comentário.</p>
+              </div>
+              <div class="col col-d-15 col-t-15 col-m-100 alerts">
+                <img class="img-fluid" src="{{url_for('static', filename='img/lembrete-alert.svg', _external=True)}}" alt="Lembrete Alerta">
+              </div>
+              <div class="col col-d-85 col-t-85 col-m-100 alerts">
+                <h6>Avaliação P1 - Legislação Aplicada a Inf...</h6>
+                <p>Faltam 7 dias para a entrega do trabalho.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- END SIDEBAR SECTION -->
+      </section>
+      <!-- END GRID ALL -->
+    </body>
+</html>

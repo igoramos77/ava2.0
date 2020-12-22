@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block body %}
+<nav class="navbar navbar-light bg-light">
+    <span class="navbar-text">
+        Matriz Curricular
+    </span>
+    <select class="custom-select col-md-2" id="periodo-list" onChange="getPeriodo(this.value);">
+        <option value="0" selected>Selecione um Período</option>
+        {% for periodo in periodo_list %}
+            <option value="{{periodo.get_id()}}">{{periodo.get_nome()}}</option>
+        {% endfor %}
+    </select>
+</nav>
+<div id="periodo">
+</div>
+<script>
+    var getPeriodo = function(numero) {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState == 4 && xhr.status == 200) {
+                document.getElementById("periodo").innerHTML = xhr.response;
+            }
+        }
+        //QUERY PARAMETERS /caminho?param=value&param=value&param=value
+        //PATH PARAMETERS /caminho/<id>/
+        xhr.open("GET", "/periodo?numero=" + numero);
+        xhr.setRequestHeader("Accept", "text/html");
+        xhr.send();
+    }
+    let selectList = document.getElementById("periodo-list");
+    getPeriodo(1);
+</script>
+{% endblock %}
+

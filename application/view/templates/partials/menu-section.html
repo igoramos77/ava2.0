@@ -1,0 +1,37 @@
+<section class="menu">
+  <div class="logo">
+    <img src="{{url_for('static', filename='img/logo-uv.svg', _external=True)}}" alt="Logo Universidade de Vassouras">
+  </div>
+  <div class="main-menu">
+    <ul>
+      <li {% if (request.path == "/dashboard") %} class="active-menu" {% endif %}>
+        <a href="{{url_for('dashboard')}}"><img src="{{url_for('static', filename='img/menu-icons/dashboard.svg', _external=True)}}" alt="Dashboard"></a>
+      </li>      
+      <li {% if (request.path == "/disciplina") %} class="active-menu" {% endif %}>
+        <a href="#"><img src="{{url_for('static', filename='img/menu-icons/actives.svg', _external=True)}}" alt="Atividades"></a>
+      </li>
+      <li {% if (request.path == "/estatisicas") %} class="active-menu" {% endif %}>
+        <a href="#"><img src="{{url_for('static', filename='img/menu-icons/stats.svg', _external=True)}}" alt="Estatisticas"></a>
+      </li>
+      <li {% if (request.path == "/calendario") %} class="active-menu" {% endif %}>
+        <a href="#"><img src="{{url_for('static', filename='img/menu-icons/calendar.svg', _external=True)}}" alt="Calendário"></a>
+      </li>
+      <li {% if (request.path == "/mensagens") %} class="active-menu" {% endif %}>
+        <a href="#"><img src="{{url_for('static', filename='img/menu-icons/messages.svg', _external=True)}}" alt="Mensagens"></a>
+      </li>
+      <li {% if (request.path == "/forum") %} class="active-menu" {% endif %}>
+        <a href="#"><img src="{{url_for('static', filename='img/menu-icons/forum.svg', _external=True)}}" alt="fórum"></a>
+      </li>
+      <li {% if (request.path == "/preferencias") %} class="active-menu" {% endif %}>
+        <a href="#"><img src="{{url_for('static', filename='img/menu-icons/settings.svg', _external=True)}}" alt="Prefrências"></a>
+      </li>
+    </ul>
+  </div>
+  <div class="logout">
+    <ul>
+      <li>
+        <a href="#"><img src="{{url_for('static', filename='img/menu-icons/logout.svg', _external=True)}}" alt="Sair"></a>
+      </li>
+    </ul>
+  </div>
+</section>

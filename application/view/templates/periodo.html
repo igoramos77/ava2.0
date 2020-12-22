@@ -1,0 +1,29 @@
+<div class="m-3 p-3">
+    {% if periodo %}
+        <h4 class="card-title">{{periodo.get_nome()}}</h4>
+        {% for disciplina in periodo.get_disciplina_lista() %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{disciplina.get_nome()}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Carga Horária: {{disciplina.get_carga_horaria()}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Pré-Requisito: 
+                        {% if disciplina.get_disciplina_prerequisito() != None %}
+                            {{disciplina.get_disciplina_prerequisito().get_nome()}}
+                        {% else %}
+                            Nenhum
+                        {% endif %}
+                    </h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Créditos:</h6>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Teórica: {{disciplina.get_credito().get_teorica()}}</li>
+                        <li class="list-group-item">Prática: {{disciplina.get_credito().get_pratica()}}</li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            Nenhum período encontrado!
+        </div>
+    {% endif %}
+<div>
